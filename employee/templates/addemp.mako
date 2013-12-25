@@ -73,6 +73,10 @@
                  % if c.sname_msg:
                     <p class="text-danger">${c.sname_msg}</p>
                  % endif
+            <input type="text" class="form-control" placeholder="Username" name="uname" value="${c.uname}" required>
+                 % if c.uname_msg:
+                    <p class="text-danger">${c.uname_msg}</p>
+                 % endif
             <input type="text" class="form-control" placeholder="Email address" name="umail" value="${c.umail}" required>
                   % if c.umail_msg:
                     <p class="text-danger">${c.umail_msg}</p>

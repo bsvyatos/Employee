@@ -10,8 +10,8 @@ def init_model(engine):
 
 t_persons = sa.Table("users", Base.metadata,
     sa.Column("id", sa.types.Integer, autoincrement=True, primary_key=True),
-    sa.Column("sname", sa.types.String(100), primary_key=True),
-    sa.Column("name", sa.types.String(100)),
+    sa.Column("sname", sa.types.String(100)),
+    sa.Column("name", sa.types.String(100), primary_key=True),
     sa.Column("email", sa.types.String(100)),
     sa.Column("password", sa.types.String(100)),
     sa.Column("birthday", sa.types.String(50)),

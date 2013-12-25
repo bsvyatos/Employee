@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 9
-_modified_time = 1387891597.173
+_modified_time = 1387979400.287
 _enable_loop = True
 _template_filename = 'C:\\Users\\Svyatoslav\\Documents\\Pylon_script\\mydev\\Scripts\\Employee\\employee\\templates/addemp.mako'
 _template_uri = '/addemp.mako'
@@ -23,25 +23,25 @@ def render_body(context,**pageargs):
         __M_writer(u'<!DOCTYPE html>\r\n<html lang="en">\r\n  <head>\r\n    <meta charset="utf-8">\r\n    <meta http-equiv="X-UA-Compatible" content="IE=edge">\r\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n    <meta name="description" content="">\r\n    <meta name="author" content="">\r\n    \r\n    <title>Starter Template for Bootstrap</title>\r\n\r\n    <!-- Bootstrap core CSS -->\r\n    <link href="/css/bootstrap.css" rel="stylesheet" />\r\n      \r\n    <!-- Custom styles for this template -->\r\n    <link href="/css/starter-template.css" rel="stylesheet"> \r\n    <link href="/css/new.css" rel="stylesheet">\r\n    <!-- Just for debugging purposes. Don\'t actually copy this line! -->\r\n    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->\r\n\r\n    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->\r\n    <!--[if lt IE 9]>\r\n      <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>\r\n      <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>\r\n    <![endif]-->\r\n    <script>\r\n      function Selected(){\r\n        var temp = "')
         # SOURCE LINE 28
         __M_writer(escape(c.depart))
-        __M_writer(u'";\r\n        var mySelect = document.getElementById(\'MySelect\');\r\n        \r\n        for(var i, j = 0; i = mySelect.options[j]; j++) {\r\n            if(i.value == temp) {\r\n                mySelect.selectedIndex = j;\r\n                break;\r\n            }\r\n        }\r\n       }\r\n    </script>\r\n    \r\n  </head>\r\n\r\n  <body onload="Selected()">\r\n\r\n    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">\r\n      <div class="container">\r\n        <div class="navbar-header">\r\n          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">\r\n            <span class="sr-only">Toggle navigation</span>\r\n            <span class="icon-bar"></span>\r\n            <span class="icon-bar"></span>\r\n            <span class="icon-bar"></span>\r\n          </button>\r\n          <a class="navbar-brand" href="home">EM Pro</a>\r\n        </div>\r\n        <div class="collapse navbar-collapse">\r\n          <ul class="nav navbar-nav">\r\n            <li><a href="home">Home</a></li>\r\n            <li><a href="list">List All</a></li>\r\n            <li class="active"><a href="newemployee">Add Employee</a></li>\r\n          </ul>\r\n        </div><!--/.nav-collapse -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class="container">\r\n\r\n      <div class="starter-template">\r\n        <div class="container">\r\n    \r\n          <form class="form-signin" method="post" action="validate">\r\n            <h2 class="form-signin-heading">Add Employee</h2>\r\n            <input type="text" class="form-control" placeholder="Name and Surname" name="uname" value="')
+        __M_writer(u'";\r\n        var mySelect = document.getElementById(\'MySelect\');\r\n        \r\n        for(var i, j = 0; i = mySelect.options[j]; j++) {\r\n            if(i.value == temp) {\r\n                mySelect.selectedIndex = j;\r\n                break;\r\n            }\r\n        }\r\n       }\r\n    </script>\r\n    \r\n  </head>\r\n\r\n  <body onload="Selected()">\r\n\r\n    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">\r\n      <div class="container">\r\n        <div class="navbar-header">\r\n          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">\r\n            <span class="sr-only">Toggle navigation</span>\r\n            <span class="icon-bar"></span>\r\n            <span class="icon-bar"></span>\r\n            <span class="icon-bar"></span>\r\n          </button>\r\n          <a class="navbar-brand" href="home">EM Pro</a>\r\n        </div>\r\n        <div class="collapse navbar-collapse">\r\n          <ul class="nav navbar-nav">\r\n            <li><a href="home">Home</a></li>\r\n            <li><a href="list">List All</a></li>\r\n            <li class="active"><a href="newemployee">Add Employee</a></li>\r\n          </ul>\r\n        </div><!--/.nav-collapse -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class="container">\r\n\r\n      <div class="starter-template">\r\n        <div class="container">\r\n    \r\n          <form class="form-signin" method="post" action="validate">\r\n            <h2 class="form-signin-heading">Add Employee</h2>\r\n            <input type="text" class="form-control" placeholder="Name and Surname" name="sname" value="')
         # SOURCE LINE 72
-        __M_writer(escape(c.uname))
-        __M_writer(u'" required>\r\n')
-        # SOURCE LINE 73
-        if c.uname_msg:
-            # SOURCE LINE 74
-            __M_writer(u'                    <p class="text-danger">')
-            __M_writer(escape(c.uname_msg))
-            __M_writer(u'</p>\r\n')
-        # SOURCE LINE 76
-        __M_writer(u'            <input type="text" class="form-control" placeholder="Username" name="sname" value="')
         __M_writer(escape(c.sname))
         __M_writer(u'" required>\r\n')
-        # SOURCE LINE 77
+        # SOURCE LINE 73
         if c.sname_msg:
-            # SOURCE LINE 78
+            # SOURCE LINE 74
             __M_writer(u'                    <p class="text-danger">')
             __M_writer(escape(c.sname_msg))
+            __M_writer(u'</p>\r\n')
+        # SOURCE LINE 76
+        __M_writer(u'            <input type="text" class="form-control" placeholder="Username" name="uname" value="')
+        __M_writer(escape(c.uname))
+        __M_writer(u'" required>\r\n')
+        # SOURCE LINE 77
+        if c.uname_msg:
+            # SOURCE LINE 78
+            __M_writer(u'                    <p class="text-danger">')
+            __M_writer(escape(c.uname_msg))
             __M_writer(u'</p>\r\n')
         # SOURCE LINE 80
         __M_writer(u'            <input type="text" class="form-control" placeholder="Email address" name="umail" value="')

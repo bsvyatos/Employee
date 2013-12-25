@@ -72,28 +72,32 @@ class ContemployeeController(BaseController):
         if(c.umail):
             if(not valid_email(c.umail)):
                 c.umail_msg = 'The Email you entered seems to be invalid!'
+            if(ifexists(c.umail, 0)):
+                c.umail_msg = 'The Email you entered already exists!'
         else:
             c.umail_msg = 'Please enter Email!'
             
+        if(c.sname):
+            if(not valid_sname(c.sname)):
+                c.sname_msg = 'Incorrect name'
+        else:
+            c.sname_msg = 'Please enter the name'
+
         if(c.uname):
             if(not valid_name(c.uname)):
                 c.uname_msg = 'This username is invalid!'
+            elif ifexists(c.uname, 1):
+                c.uname_msg = 'Employee with this username already exists!'
         else:
             c.uname_msg = 'Please enter employees username'
             
+
         if(upass):
             if(not valid_pass(upass)):
                 c.upass_msg = 'The password you entered seems to be invalid'
         else:
             c.upass_msg = 'Please enter the password'
             
-        if(c.sname):
-            if(not valid_sname(c.sname)):
-                c.sname_msg = 'Incorrect name'
-            elif ifexists(c.sname):
-                c.sname_msg = 'Employee with this username already exists!'
-        else:
-            c.sname_msg = 'Please enter the name'
             
         if(not (c.umail_msg or c.upass_msg or c.uname_msg or c.select_msg)):
             if(request.params['edit']):
@@ -133,7 +137,7 @@ class ContemployeeController(BaseController):
         id = int(request.params['iid'])
         user = findid(id)
         if(request.params['del'] == 'yes'):
-            user = meta.Session.query(Person).get((id, findid(id).sname))
+            user = meta.Session.query(Person).get((id, findid(id).name))
             meta.Session.delete(user)
             meta.Session.commit()
             redirect(url(controller='contemployee', action='list'))
@@ -184,15 +188,20 @@ def valid_name(uname):
     return False
 
 def valid_sname(sname):
-    if re.search("^[a-zA-Z]{2,50}$", sname):
+    if re.search("/^[a-z ,.'-]+$/i", sname):
         return True
     return False
 
-def ifexists(fsname):
+def ifexists(fsname, ifname):
     try:
         for p in meta.Session.query(Person):
-            if p.sname == fsname:
-                return True
+            if ifname:
+                if p.name == fsname:
+                    return True
+            else:
+                if p.email == fsname:
+                    return True
+                
     except BaseException:
         return False
         
