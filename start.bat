@@ -1,0 +1,1 @@
+..\paster.exe serve --reload development.ini

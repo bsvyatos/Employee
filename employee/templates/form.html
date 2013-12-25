@@ -1,0 +1,68 @@
+<form name="test" method="GET" action="/contemployee/email">
+        <table>
+            <tr>
+                <td class="label">
+                    Name
+                </td>
+                <td>
+                    <input type="text" name="username" value="%(username)s">
+                </td>
+                <td class="error">%(uerror)s</td>
+            </tr>
+            
+            <tr>
+                <td class="label">
+                    Password
+                </td>
+                <td>
+                    <input type="password" name="password">
+                </td>
+                <td class="error">%(perror)s</td>
+            </tr>
+            
+            <tr>
+                <td class="label">
+                    Email
+                </td>
+                <td>
+                    <input type="text" name="email" value="%(mail)s">
+                </td>
+                <td class="error">%(merror)s</td>
+            </tr>
+            
+            <tr>
+                <td class="label">
+                    Birthday
+                </td>
+                <td>
+                    <input type="date" name="bdate">
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label">
+                    Wage
+                </td>
+                <td>
+                    <input type="number" name="wage"> £
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label">
+                    Department
+                </td>
+                <td>
+                    <select name="department">
+                        <option value="it">IT</option>
+                        <option value="qa">QA</option>
+                        <option value="pr">PR</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        
+        
+        <br>
+        <input type="submit">
+</form>
