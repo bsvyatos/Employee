@@ -11,7 +11,7 @@ from webhelpers.html.tags import stylesheet_link
 from sqlalchemy.sql import exists
 
 
-from employee.model import meta, Person
+from employee.model import meta, Person, Department
 import employee.model as model
 
 DB_URL = "sqlite:///test.sqlite"
@@ -46,7 +46,8 @@ class ContemployeeController(BaseController):
         num = 1
         for p in meta.Session.query(Person):
             c.txttosend += '<tr>'
-            c.txttosend += '<td>' + str(num) + '</td>' + '<td>' + p.sname + '</td>' + '<td>' + p.name + '</td>' + '<td>' + p.email + '</td>' + '<td>' + p.birthday + '</td>' + '<td>' + str(p.wage) + '</td>' + '<td>' + p.depart + '</td>'
+            dep = meta.Session.query(Department.depart).filter_by(id=p.depart_id).scalar()
+            c.txttosend += '<td>' + str(num) + '</td>' + '<td>' + p.sname + '</td>' + '<td>' + p.name + '</td>' + '<td>' + p.email + '</td>' + '<td>' + p.birthday + '</td>' + '<td>' + str(p.wage) + '</td>' + '<td>' + dep.upper() + '</td>'
             r = str(p.id)
             c.txttosend += '<td><button class="btn btn-warning btn-xs" id="' + r + '" onClick="click_edit(this.id)"><span class="glyphicon glyphicon-wrench"></span></button></td>'
             c.txttosend += '<td><button class="btn btn-danger btn-xs" id="' + r + '" onClick="click_del(this.id)"><span class="glyphicon glyphicon-trash"></span></button></td></tr>'
@@ -116,12 +117,22 @@ class ContemployeeController(BaseController):
             else:
                 user = Person()
                 user.id = newid()
-
+            
+            if ifdepart(select):
+                depid = meta.Session.query(Department.id).filter_by(depart=select).scalar()
+            else:
+                depid = departid()
+                ndepart = Department()
+                ndepart.id = depid
+                ndepart.depart = select
+                meta.Session.add(ndepart)
+                meta.Session.commit()
+                
             user.sname = c.sname
             user.name = c.uname
             user.email = c.umail
             user.password = upass
-            user.depart = select
+            user.depart_id = depid
             user.birthday = request.params['birthday']
             user.wage = request.params['wage']
             
@@ -154,7 +165,9 @@ class ContemployeeController(BaseController):
             redirect(url(controller='contemployee', action='list'))
         if not user:
             redirect(url(controller='contemployee', action='home'))
-        c.depart = user.depart
+        
+        
+        c.depart = meta.Session.query(Department.depart).filter_by(id=user.depart_id).scalar()
         c.ubirth = user.birthday
         c.uname = user.name
         c.sname = user.sname
@@ -164,11 +177,19 @@ class ContemployeeController(BaseController):
         return render('/edit.mako')
     
     def check(self):
-        c.txt = 'empty'
-        tmp = meta.Session.query(Person).filter(Person.id == 7).scalar()
-        c.txt = tmp
-        #for txtbuff in meta.Session.query(Person.id).all():
-        #    c.txt += str(txtbuff) + ' | '
+        #c.txt = 'empty'
+        #tmp = meta.Session.query(Department).filter(Department.id == 1).scalar()
+        #if tmp:
+        #    c.txt = tmp.depart
+        #depid = 1
+        #ndepart = Department()
+        #ndepart.id = depid
+        #ndepart.depart = 'IT'
+        #meta.Session.add(ndepart)
+        #meta.Session.commit()
+        c.txt = ''
+        for txtbuff in meta.Session.query(Department):
+            c.txt += txtbuff.depart + ' | '
         #if not txtbuff:
         #    return render('/check.mako')
         #c.txt = meta.Session.query(exists().where(Person.name == 'bsakjdhbf')).scalar()
@@ -227,9 +248,13 @@ def ifexists(ename, ifname, iid = 0):
         
     return False
         
-    
+def ifdepart(dep):
+    if meta.Session.query(Department).filter(Department.depart == dep).all():
+        return True
+    return False
 
 def newid():
+    var = 0
     try:
         for p in meta.Session.query(Person):
             var = p.id
@@ -237,4 +262,12 @@ def newid():
         return var
     return var + 1
 
+def departid():
+    var = 0
+    try:
+        for p in meta.Session.query(Department):
+            var = p.id
+    except BaseException:
+        return var
+    return var + 1
     

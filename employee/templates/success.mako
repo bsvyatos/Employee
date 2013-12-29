@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Starter Template for Bootstrap</title>
+    <title>Success</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>U have successfuly added new employee</h1>
+        <h1>You have successfuly added new employee</h1>
         <p class="lead">Congratulations!</p>
       </div>
 
