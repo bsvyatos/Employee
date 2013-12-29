@@ -1,2 +1,0 @@
-${h.stylesheet_link(h.url_for("/css/bootstrap.min.css"))}
-    <!--<style  type="text/css"> <%include file="bootstrap.css"/> </style>-->
