@@ -86,7 +86,7 @@ class ContemployeeController(BaseController):
             c.umail_msg = 'Please enter Email!'
             
         if(c.sname):
-            if(not valid_sname(c.sname)):
+            if not valid_sname(c.sname):
                 c.sname_msg = 'Incorrect name'
         else:
             c.sname_msg = 'Please enter the name'
@@ -109,7 +109,7 @@ class ContemployeeController(BaseController):
             c.upass_msg = 'Please enter the password'
             
             
-        if(not (c.umail_msg or c.upass_msg or c.uname_msg or c.select_msg)):
+        if(not (c.umail_msg or c.upass_msg or c.uname_msg or c.select_msg or c.sname_msg)):
             if(request.params['edit']):
                 tmpname = findid(eid)
                 user = meta.Session.query(Person).get((eid, tmpname.name))
@@ -211,7 +211,7 @@ def valid_name(uname):
     return False
 
 def valid_sname(sname):
-    if re.search("/^[a-z ,.'-]+$/i", sname):
+    if re.search(r"(?i)^[a-z ,.'-]+$", sname):
         return True
     return False
 
