@@ -77,9 +77,7 @@
             <input type="number" class="form-control" placeholder="Wage" name="wage" value="${c.wage}"required>
             <select class="form-control" name="select" id="MySelect">
                   <option class="form-control" value="sd">Select Department</option>
-                  <option value="qa">QA</option>
-                  <option value="it">IT</option>
-                  <option value="pr">PR</option>
+				  ${c.txttosend | n}
             </select>
                  % if c.select_msg:
                     <p class="text-danger">${c.select_msg}</p>
