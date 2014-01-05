@@ -108,7 +108,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <input type="hidden" name="edit" value="">
+              <input type="hidden" name="state" value="Add">
               <button type="submit" class="submit btn primary-btn">Add</button>
             </div>
           </form>

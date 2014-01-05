@@ -36,7 +36,9 @@ class ContemployeeController(BaseController):
         redirect(url(controller="contemployee", action="home"))
         
     def newemployee(self):
-        return render('/addemp.mako')
+        c.state = "Add"
+        c.submit = "Save"
+        return render('/edit.mako')
     
     def form(self):
         return render('/newemp.mako')
@@ -68,9 +70,9 @@ class ContemployeeController(BaseController):
         c.wage = request.params['wage']
         c.ubirth = request.params['birthday']
         c.depart = request.params['select']
-        ifedit = request.params['edit']
+        c.state = request.params['state']
         eid = False
-        if ifedit:
+        if c.state == "Edit":
             eid = request.params['iid']
 
         if(select == 'sd'):
@@ -111,7 +113,7 @@ class ContemployeeController(BaseController):
             
             
         if(not (c.umail_msg or c.upass_msg or c.uname_msg or c.select_msg or c.sname_msg)):
-            if(request.params['edit']):
+            if(c.state == "Edit"):
                 tmpname = findid(eid)
                 user = meta.Session.query(Person).get((eid, tmpname.name))
             else:
@@ -136,24 +138,17 @@ class ContemployeeController(BaseController):
             user.birthday = request.params['birthday']
             user.wage = request.params['wage']
             
-            if(ifedit):
-                meta.Session.commit()
-                redirect(url(controller='contemployee', action='successedit'))
+            if(c.state == "Add"):
+                meta.Session.add(user)
                 
-            meta.Session.add(user)
             meta.Session.commit()
-            redirect(url(controller='contemployee', action='success'))
+            return render('/success.mako')
         
-        if(ifedit):
+        c.submit = "Add"
+        if(c.state == "Edit"):
             c.iid = eid
-            return render('/edit.mako')
-        return render('/addemp.mako')
-
-    def success(self) :
-        return render('/success.mako')
-    
-    def successedit(self):
-        return render('/successedit.mako')
+            c.submit = "Save"
+        return render('/edit.mako')
     
     def edit(self):
         id = int(request.params['iid'])
@@ -174,6 +169,8 @@ class ContemployeeController(BaseController):
         c.umail = user.email
         c.wage = user.wage
         c.iid = int(request.params['iid'])
+        c.state = "Edit"
+        c.submit = "Save"
         return render('/edit.mako')
     
     def check(self):

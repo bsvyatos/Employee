@@ -13,8 +13,6 @@
     <!-- Custom styles for this template -->
     <link href="/css/starter-template.css" rel="stylesheet"> 
     <link href="/css/new.css" rel="stylesheet">
-    <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <script>
       function Selected(){
         var temp = "${c.depart}";
@@ -28,11 +26,9 @@
         }
        }
     </script>
-    
   </head>
 
   <body onload="Selected()">
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">

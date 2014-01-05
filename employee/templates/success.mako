@@ -14,15 +14,6 @@
       
     <!-- Custom styles for this template -->
     <link href="/css/starter-template.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -51,17 +42,19 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>You have successfuly added new employee</h1>
+        % if c.state == "Edit":
+        <h1>Edit was successful</h1>
+        % else:
+        <h1>You have successfuly added new employee ${c.state}</h1>
+        % endif
         <p class="lead">Congratulations!</p>
+        <input type="hidden" name="state" value="${c.state}">
       </div>
 
     </div><!-- /.container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="/js/jquery-2.0.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
  </body>
 </html>
