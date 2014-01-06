@@ -35,10 +35,16 @@ class ContemployeeController(BaseController):
     def index(self):
         redirect(url(controller="contemployee", action="home"))
         
+    def render_edit(self):
+        c.txttosend = ''
+        for p in meta.Session.query(Department):
+            c.txttosend += "<option value=" + p.depart + ">" + p.depart.upper() + "</option>"
+        return render('/edit.mako')
+    
     def newemployee(self):
         c.state = "Add"
         c.submit = "Save"
-        return render('/edit.mako')
+        return self.render_edit()
     
     def form(self):
         return render('/newemp.mako')
@@ -58,6 +64,9 @@ class ContemployeeController(BaseController):
         return render('/list.mako')
     
     def home(self):
+        c.txttosend = ''
+        for p in meta.Session.query(Department):
+            c.txttosend += "<option value=" + p.depart + ">" + p.depart.upper() + "</option>"
         return render('/home.mako')
     
     def validate(self):
@@ -148,7 +157,8 @@ class ContemployeeController(BaseController):
         if(c.state == "Edit"):
             c.iid = eid
             c.submit = "Save"
-        return render('/edit.mako')
+        return self.render_edit()
+
     
     def edit(self):
         id = int(request.params['iid'])
@@ -171,7 +181,7 @@ class ContemployeeController(BaseController):
         c.iid = int(request.params['iid'])
         c.state = "Edit"
         c.submit = "Save"
-        return render('/edit.mako')
+        return self.render_edit()
     
     def check(self):
         #c.txt = 'empty'
