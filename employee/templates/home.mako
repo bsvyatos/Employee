@@ -57,7 +57,7 @@
 
     </div><!-- /.container -->
 
-    <script src=/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/jquery-2.0.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -85,9 +85,7 @@
                 Department
                 <select class="form-control" name="select">
                   <option value="sd">Select Department</option>
-                  <option value="qa">QA</option>
-                  <option value="it">IT</option>
-                  <option value="pr">PR</option>
+				  ${c.txttosend | n}
                 </select>
               </div>
             </div>

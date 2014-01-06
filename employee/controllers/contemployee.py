@@ -64,6 +64,9 @@ class ContemployeeController(BaseController):
         return render('/list.mako')
     
     def home(self):
+        c.txttosend = ''
+        for p in meta.Session.query(Department):
+            c.txttosend += "<option value=" + p.depart + ">" + p.depart.upper() + "</option>"
         return render('/home.mako')
     
     def validate(self):
