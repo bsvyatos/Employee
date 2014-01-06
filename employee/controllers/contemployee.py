@@ -68,7 +68,7 @@ class ContemployeeController(BaseController):
         c.sname = request.params['sname']
         select = request.params['select']
         c.wage = request.params['wage']
-        c.ubirth = request.params['birthday']
+        c.ubirth = request.params['birthday_day'] + '/' + request.params['birthday_month'] + '/' + request.params['birthday_year']
         c.depart = request.params['select']
         c.state = request.params['state']
         eid = False
@@ -135,7 +135,7 @@ class ContemployeeController(BaseController):
             user.email = c.umail
             user.password = upass
             user.depart_id = depid
-            user.birthday = request.params['birthday']
+            user.birthday = str(request.params['birthday_day']) + '/' + str(request.params['birthday_month']) + '/' + str(request.params['birthday_year'])
             user.wage = request.params['wage']
             
             if(c.state == "Add"):

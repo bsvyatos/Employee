@@ -13,6 +13,38 @@
     <!-- Custom styles for this template -->
     <link href="/css/starter-template.css" rel="stylesheet"> 
     <link href="/css/new.css" rel="stylesheet">
+    <script type="text/javascript">
+      
+      if ("${c.ubirth}") {
+        var birth = "${c.ubirth}".split("/")
+      }
+      
+      var monthtext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
+      
+      function populatedropdown(dayfield, monthfield, yearfield){
+      var today=new Date();
+      var dayfield=document.getElementById(dayfield);
+      var monthfield=document.getElementById(monthfield);
+      var yearfield=document.getElementById(yearfield);
+      for (var i=0; i<31; i++)
+      dayfield.options[i]=new Option(i, i+1)
+      if ("${c.ubirth}") {
+        dayfield.options[birth[0]]=new Option(birth[0], birth[0], true, true) //select today's day
+      } else {
+        dayfield.options[today.getDate()]=new Option(today.getDate(), today.getDate(), true, true) //select today's day
+      }
+      for (var m=0; m<12; m++)
+      monthfield.options[m]=new Option(monthtext[m], monthtext[m])
+      monthfield.options[today.getMonth()]=new Option(monthtext[today.getMonth()], monthtext[today.getMonth()], true, true) //select today's month
+      var thisyear=today.getFullYear()
+      for (var y=0; y<20; y++){
+        yearfield.options[y]=new Option(thisyear, thisyear)
+        thisyear+=1
+      }
+      yearfield.options[0]=new Option(today.getFullYear(), today.getFullYear(), true, true) //select today's year
+      }
+    
+    </script>
     <script>
       function Selected(){
         var temp = "${c.depart}";
@@ -73,7 +105,21 @@
                  % if c.upass_msg: 
                    <p class="text-danger">${c.upass_msg}</p>
                  % endif
-            <input type="date" class="form-control" name="birthday" value="${c.ubirth}" required>
+            <div class="bs-example">
+              Day<select  id="daydropdown" name="birthday_day">
+              </select> 
+              Month<select id="monthdropdown" name="birthday_month">
+              </select> 
+              Year<select id="yeardropdown" name="birthday_year">
+              </select> 
+            </div>
+            <script type="text/javascript">
+            
+            //populatedropdown(id_of_day_select, id_of_month_select, id_of_year_select)
+            window.onload=function(){
+            populatedropdown("daydropdown", "monthdropdown", "yeardropdown")
+            }
+            </script>
             <input type="number" class="form-control" placeholder="Wage" name="wage" value="${c.wage}"required>
             <select class="form-control" name="select" id="MySelect">
                   <option class="form-control" value="sd">Select Department</option>
