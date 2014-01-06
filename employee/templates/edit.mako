@@ -13,36 +13,55 @@
     <!-- Custom styles for this template -->
     <link href="/css/starter-template.css" rel="stylesheet"> 
     <link href="/css/new.css" rel="stylesheet">
+	<script src="/js/jquery-2.0.3.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      
-      if ("${c.ubirth}") {
-        var birth = "${c.ubirth}".split("/")
-      }
       
       var monthtext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
       
+	  if ("${c.ubirth}") {
+        var birth = "${c.ubirth}".split("/");
+		$.each(monthtext, function(i, item) {
+			if (birth[1] == item) {
+				birth[1]=i;
+				return false;
+			}
+		});
+      }
+            
       function populatedropdown(dayfield, monthfield, yearfield){
-      var today=new Date();
-      var dayfield=document.getElementById(dayfield);
-      var monthfield=document.getElementById(monthfield);
-      var yearfield=document.getElementById(yearfield);
-      for (var i=0; i<31; i++)
-      dayfield.options[i]=new Option(i, i+1)
-      if ("${c.ubirth}") {
-        dayfield.options[birth[0]]=new Option(birth[0], birth[0], true, true) //select today's day
-      } else {
-        dayfield.options[today.getDate()]=new Option(today.getDate(), today.getDate(), true, true) //select today's day
-      }
-      for (var m=0; m<12; m++)
-      monthfield.options[m]=new Option(monthtext[m], monthtext[m])
-      monthfield.options[today.getMonth()]=new Option(monthtext[today.getMonth()], monthtext[today.getMonth()], true, true) //select today's month
-      var thisyear=today.getFullYear()
-      for (var y=0; y<20; y++){
-        yearfield.options[y]=new Option(thisyear, thisyear)
-        thisyear+=1
-      }
-      yearfield.options[0]=new Option(today.getFullYear(), today.getFullYear(), true, true) //select today's year
-      }
+		  var today=new Date();
+		  var dayfield=document.getElementById(dayfield);
+		  var monthfield=document.getElementById(monthfield);
+		  var yearfield=document.getElementById(yearfield);
+		  for (var i=0; i<31; i++)
+			dayfield.options[i]=new Option(i, i+1)
+		  if (birth) {
+			dayfield.options[birth[0]]=new Option(birth[0], birth[0], true, true)
+		  } else {
+			dayfield.options[today.getDate()]=new Option(today.getDate(), today.getDate(), true, true) //select today's day
+		  }
+		  for (var m=0; m<12; m++)
+			monthfield.options[m]=new Option(monthtext[m], monthtext[m])
+      
+		  if (birth) {
+			monthfield.options[birth[1]]=new Option(monthtext[birth[1]], monthtext[birth[1]], true, true)
+		  } else {
+			monthfield.options[today.getMonth()]=new Option(monthtext[today.getMonth()], monthtext[today.getMonth()], true, true) //select today's month
+		  }
+		  var yearstart=today.getFullYear() - 13;
+		  var defaultchoise=yearstart;
+		  for (var y=0; y<100; y++){
+			yearfield.options[y]=new Option(yearstart, yearstart);
+			yearstart-=1;
+		  }
+
+		  if (birth) {
+			yearfield.options[defaultchoise - birth[2]]=new Option(birth[2], birth[2], true, true)
+		  } else {
+			yearfield.options[0]=new Option(defaultchoise, defaultchoise, true, true)
+		  }
+	  }
     
     </script>
     <script>
@@ -105,6 +124,11 @@
                  % if c.upass_msg: 
                    <p class="text-danger">${c.upass_msg}</p>
                  % endif
+            <input type="number" class="form-control" placeholder="Wage" name="wage" value="${c.wage}"required>
+            <select class="form-control" name="select" id="MySelect">
+                  <option class="form-control" value="sd">Select Department</option>
+				  ${c.txttosend | n}
+            </select>
             <div class="bs-example">
               Day<select  id="daydropdown" name="birthday_day">
               </select> 
@@ -114,17 +138,10 @@
               </select> 
             </div>
             <script type="text/javascript">
-            
-            //populatedropdown(id_of_day_select, id_of_month_select, id_of_year_select)
-            window.onload=function(){
-            populatedropdown("daydropdown", "monthdropdown", "yeardropdown")
-            }
+				window.onload=function(){
+					populatedropdown("daydropdown", "monthdropdown", "yeardropdown")
+				}
             </script>
-            <input type="number" class="form-control" placeholder="Wage" name="wage" value="${c.wage}"required>
-            <select class="form-control" name="select" id="MySelect">
-                  <option class="form-control" value="sd">Select Department</option>
-				  ${c.txttosend | n}
-            </select>
                  % if c.select_msg:
                     <p class="text-danger">${c.select_msg}</p>
                  % endif
@@ -137,7 +154,5 @@
 
     </div><!-- /.container -->
 
-	<script src="/js/jquery-2.0.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
  </body>
 </html>
